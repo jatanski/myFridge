@@ -1,4 +1,4 @@
 {
-  "jwtPrivateKey": "",
+  "jwtPrivateKey": "myFridge_jwtPrivateKey",
   "db": "mongodb+srv://admin:admin@cluster0-qprxm.mongodb.net/test?retryWrites=true&w=majority"
 }
