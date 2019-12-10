@@ -3,18 +3,12 @@ const express = require("express");
 const app = express();
 require("./startup/prod")(app);
 require("./startup/db")();
-const users = require('./routes/users');
-const auth = require('./routes/auth');
+require('./startup/routes');
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');
   process.exit(1);
 }
-
-app.use(express.json());
-app.use('/api/users', users);
-app.use('/api/auth', auth);
-
 
 app.get("/", (req, res) => {
   res.send("Hello world");
