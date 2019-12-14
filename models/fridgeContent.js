@@ -1,9 +1,10 @@
 const mongoose = require('mongoose');
+const _ = require('lodash');
 const Product = require('./product');
 const Unit = require('./unit')
 
 // Fridge content Schema
-const fridgeContentSchema = new moongose.Schema({
+const fridgeItemSchema = new mongoose.Schema({
     id: {
         type: Number,
         required: true
@@ -24,20 +25,22 @@ const fridgeContentSchema = new moongose.Schema({
         type: Number,
         required: true
     }
-})
+});
 
-const fridgeContent = mongoose.model('fridgeContent', fridgeContentSchema);
+const FridgeItem = mongoose.model('FridgeItem', fridgeItemSchema);
 
 // Adding products to the fridge manually
 async function addToFridge(req, res){
-    const item = new fridgeContent({
+    const item = new FridgeItem({
         id: 0,
-        name: 'reg.name',
-        units: 'req.units',
-        avaliableQuantity: 'req.avaliabeQuantity'
+        name: req.name,
+        units: req.units,
+        avaliableQuantity: req.avaliableQuantity
     })
-    const result = await iten.save();
-}
+    const result = await item.save();
+    res.send(_.pick(item, ['id', 'name', 'units', 'avaliableQuantity']));
+    return result
+};
 
-exports.fridgeContent = fridgeContent;
+exports.FridgeItem = FridgeItem;
 exports.addToFridge = addToFridge;
