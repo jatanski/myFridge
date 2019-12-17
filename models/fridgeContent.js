@@ -10,11 +10,9 @@ const fridgeItemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    name: {
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Product'
-        type: String,
-        required: true
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product'
     },
     units : {
         // type: mongoose.Schema.Types.ObjectId,
@@ -32,7 +30,7 @@ const FridgeItem = mongoose.model('FridgeItem', fridgeItemSchema);
 // Walidacja produktu
 function validateItem(item){
     const schema = {
-        name: Joi.string().min(3).max(80).required(),
+        name: Joi.required(),
         units: Joi.required(),
         avaliableQuantity : Joi.number().required()
     }
