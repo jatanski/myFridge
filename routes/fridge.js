@@ -14,30 +14,41 @@ router.post('/', (req, res) => {
     }
 });
 
-// Dopisać dodawanie produktu do lodówki ze zrealizowanej listy zakupowej
+// Aktualizacja  produktu w lodówce
+router.put('/:item', async (req, res) => {
+    // Pobranie produktu
+    const item = await FridgeItem
+        .findOneAndUpdate({product: req.params.item}, req.body)
+        .populate('product', 'name -_id')
+    return res.send(item)
+   
+})
 
-// Aktualizacja produktów w lodówce
-// router.put('/api/fridge/:id', (req, res) => {
+// Usuwanie produktu z lodówki
+router.delete('/:item', async (req, res) => {
+    const item = await FridgeItem
+        .findOneAndDelete({product: req.params.item})
+        .populate('product', 'name -_id')
+    return res.send(item)
+   
+})
 
-// })
-
-// Usuwanie produktów z lodówki
 
 // Pobieranie produktów dostępnych w lodówce
 router.get('/', async (req, res) => {
     const fridgeContent = await FridgeItem
         .find()
-        .populate('name', 'name -_id')
-        .select({name : 1, units: 1, avaliableQuantity: 1});
+        .populate('product', 'name -_id')
+        .select({product : 1, units: 1, avaliableQuantity: 1});
     return res.send(fridgeContent);
 });
 
 // Pobieranie konkretnego produktu
 router.get('/:item', async (req, res) => {
     let item = await FridgeItem
-        .findOne({ name: req.params.item })
-        .populate('name', 'name -_id')
-        .select('name units avaliableQuantity')
+        .findOne({ product: req.params.item })
+        .populate('product', 'name -_id')
+        .select('product units avaliableQuantity')
     if (item) return res.send(item)
     return res.status(404).send(`There is no such product in the fridge`);
 });

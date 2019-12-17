@@ -8,8 +8,6 @@ require("./startup/db")();
 require('./startup/routes');
 
 app.use(express.json());
-app.use('/api/products', products);
-app.use('/api/fridge', fridge);
 
 if (!config.get('jwtPrivateKey')) {
   console.error('FATAL ERROR: jwtPrivateKey is not defined.');

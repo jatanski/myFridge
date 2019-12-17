@@ -12,7 +12,9 @@ const fridgeItemSchema = new mongoose.Schema({
     },
     product: {
         type: mongoose.Schema.Types.ObjectId,
-        ref: 'Product'
+        ref: 'Product',
+        // type: String,
+        // required: true
     },
     units : {
         // type: mongoose.Schema.Types.ObjectId,
@@ -30,7 +32,7 @@ const FridgeItem = mongoose.model('FridgeItem', fridgeItemSchema);
 // Walidacja produktu
 function validateItem(item){
     const schema = {
-        name: Joi.required(),
+        product: Joi.required(),
         units: Joi.required(),
         avaliableQuantity : Joi.number().required()
     }
@@ -41,12 +43,12 @@ function validateItem(item){
 async function addToFridge(req, res){
     const item = new FridgeItem({
         id: 0,
-        name: req.name,
+        product: req.product,
         units: req.units,
         avaliableQuantity: req.avaliableQuantity
     })
     const result = await item.save();
-    res.send(_.pick(item, ['id', 'name', 'units', 'avaliableQuantity']));
+    res.send(_.pick(item, ['id', 'product', 'units', 'avaliableQuantity']));
     return result
 };
 
