@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const Joi = require('joi');
 const _ = require('lodash');
 const Product = require('./product');
 const Unit = require('./unit')
@@ -9,11 +10,11 @@ const fridgeItemSchema = new mongoose.Schema({
         type: Number,
         required: true
     },
-    name: {
-        // type: mongoose.Schema.Types.ObjectId,
-        // ref: 'Product'
-        type: String,
-        required: true
+    product: {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Product',
+        // type: String,
+        // required: true
     },
     units : {
         // type: mongoose.Schema.Types.ObjectId,
@@ -28,19 +29,29 @@ const fridgeItemSchema = new mongoose.Schema({
 });
 
 const FridgeItem = mongoose.model('FridgeItem', fridgeItemSchema);
+// Walidacja produktu
+function validateItem(item){
+    const schema = {
+        product: Joi.required(),
+        units: Joi.required(),
+        avaliableQuantity : Joi.number().required()
+    }
+    return Joi.validate(item, schema);
+}
 
-// Adding products to the fridge manually
+// Dodawanie produktu do lodówki manualnie
 async function addToFridge(req, res){
     const item = new FridgeItem({
         id: 0,
-        name: req.name,
+        product: req.product,
         units: req.units,
         avaliableQuantity: req.avaliableQuantity
     })
     const result = await item.save();
-    res.send(_.pick(item, ['id', 'name', 'units', 'avaliableQuantity']));
+    res.send(_.pick(item, ['id', 'product', 'units', 'avaliableQuantity']));
     return result
 };
 
 exports.FridgeItem = FridgeItem;
 exports.addToFridge = addToFridge;
+exports.validateItem = validateItem;
