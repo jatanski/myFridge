@@ -15,7 +15,7 @@ router.post('/', auth, async (req, res) => {
 
 router.get('/:shoppingListItem', async (req, res) => {
     console.log(req.params.shoppingListItem);
-    const value = await getValue(req.params.shoppingListItem, 100);
+    const value = await getValue(req.params.shoppingListItem, 1);
     console.log('value', value);
     const sum = await sumValues([
         { unit: 'cup', amount: 1 },

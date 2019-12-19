@@ -19,7 +19,15 @@ async function getUnits() {
 }
 
 async function getValue(unitName, amount) {
-    let result = await Unit.findOne({ name: unitName });
+    let result;
+    if (unitName.endsWith('s')) {
+        result = await Unit.findOne({ name: unitName.slice(0, -1) });
+        if (!result) {
+            result = await Unit.findOne({ name: unitName });
+        }
+    } else {
+        result = await Unit.findOne({ name: unitName });
+    }
     return !!result ? result.value * amount : 0;
 }
 
