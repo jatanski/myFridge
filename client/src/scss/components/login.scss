@@ -1,0 +1,39 @@
+.row{
+    justify-content: center;
+}
+
+form{
+    margin-top: 55px;
+}
+
+
+
+.form-error{
+    overflow: hidden;
+    transition: .9s linear;
+    height: 38px;
+}
+.form-error.closed{
+    overflow: hidden;
+    transition: .9s linear;
+    height: 0px;
+}
+
+.form-error:empty{
+    height: 0px;
+
+
+}
+
+@keyframes show {
+    0%   {height: 0px;}
+    25%  {height: 84px;}
+    75%  {height: 84px;}
+    100% {height: 0px;}
+  }
+
+//   @keyframes hide {
+//     0%   {height: 84px;}
+//     25%  {height: 0px;}
+//     100% {height: 0px;}
+//   }

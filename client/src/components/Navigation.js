@@ -15,6 +15,12 @@ export default function Navigation() {
       <MDBNavLink className="white-text" to="/example">
         Example
       </MDBNavLink>
+      <MDBNavLink className="white-text" to="/register">
+        Register
+      </MDBNavLink>
+      <MDBNavLink className="white-text" to="/login">
+        Login
+      </MDBNavLink>
     </MDBNav>
   );
 }
