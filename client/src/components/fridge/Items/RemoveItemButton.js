@@ -4,16 +4,15 @@ import { MDBBtn } from "mdbreact";
 class RemoveItemButton extends React.Component {
     state = { item: '' }
 
-    RemoveClick = async (event) => {
-        const button = event.target
-        const id = button.parentElement.parentElement.children[1].textContent
-        await this.setState({ item: id });
+    Remove = async (event) => {
+        const itemToRemove = event.target.parentElement.getAttribute('value')
+        await this.setState({ item: itemToRemove });
         this.props.onRemove(this.state.item);
     }
 
     render() {
         return (
-            <MDBBtn outline color="danger" size="sm" onClick={this.RemoveClick}>Remove</MDBBtn>
+            <MDBBtn outline color="danger" size="sm" onClick={this.Remove}>Remove</MDBBtn>
         )
     }
 }

@@ -22,7 +22,7 @@ router.get('/:product', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const products = await Product.find().populate('units', 'name -_id').select('id name type units -_id');
+    const products = await Product.find().populate('units', 'name -_id').select('id name type units _id');
     return res.send(JSON.stringify(products));
 })
 module.exports = router;

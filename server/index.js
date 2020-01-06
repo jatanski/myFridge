@@ -2,6 +2,8 @@ const config = require('config');
 const express = require('express');
 const app = express();
 const cors = require('cors');
+const fridge = require('./routes/fridge');
+const products = require('./routes/products');
 //
 // const users = require('./routes/users');
 // const auth = require('./routes/auth');
@@ -12,6 +14,8 @@ require('./startup/routes');
 
 app.use(express.json());
 app.use(cors())
+app.use('/api/fridge', fridge);
+app.use('/api/products', products);
 
 //
 // app.use('/api/users', users);

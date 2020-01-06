@@ -7,12 +7,12 @@ import RemoveItem from './Items/RemoveItem'
 const ItemsDisplay = (props) => {
     const items = props.items.map((item, index) => {
         return (
-            <tr id='item-column'>
+            <tr id='item-column' >
                 <td>{index + 1}</td>
                 <td>{item.product.name}</td>
                 <td>{item.units}</td>
                 <td>{item.avaliableQuantity}</td>
-                <td><RemoveItem/></td>
+                <td value = {item._id}><RemoveItem/></td>
             </tr>
             )
     })
