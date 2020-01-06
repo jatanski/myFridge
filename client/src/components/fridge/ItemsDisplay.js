@@ -5,7 +5,7 @@ import RemoveItem from './Items/RemoveItem';
 const ItemsDisplay = props => {
   const items = props.items.map((item, index) => {
     return (
-      <tr id="item-column">
+      <tr id="item-column" key={index}>
         <td>{index + 1}</td>
         <td>{item.product.name}</td>
         <td>{item.units}</td>
