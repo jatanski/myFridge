@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ItemsDisplay from './ItemsDisplay'
+import AddItem from './newItem/AddItem'
 
 class FridgeContent extends React.Component {
     state = { items: [] };
@@ -18,6 +19,7 @@ class FridgeContent extends React.Component {
             <div>
             <button onClick={this.getFridgeContent}>Download content</button>
             <ItemsDisplay items ={this.state.items}/>
+            <AddItem/>
             </div>
         )
     }
