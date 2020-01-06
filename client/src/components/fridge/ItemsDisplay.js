@@ -18,7 +18,6 @@ const ItemsDisplay = props => {
       </tr>
     );
   });
-  console.log(props);
   return (
     <MDBContainer className="mt-5 text-center">
       <MDBTable bordered>

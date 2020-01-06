@@ -10,7 +10,7 @@ class Dashboard extends Component {
         <div className="">
           <div className="card  m-3">
             <div className="card-body">
-              <h2 className="h2-responsive">Currently in fridge</h2>
+              <h2 className="h2-responsive">Currently in your fridge</h2>
               <FridgeContent disableAdding="true" autoLoad="true" disableRemoving="true"></FridgeContent>
             </div>
           </div>
