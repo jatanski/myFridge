@@ -1,7 +1,7 @@
 import React from 'react';
 import '../scss/pages/app.scss';
 import { MDBContainer } from 'mdbreact';
-import FridgeContent from '../components/FridgeContent'
+import FridgeContent from '../components/fridge/FridgeContent'
 
 function Fridge() {
   return (

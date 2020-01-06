@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { MDBNav, MDBNavLink, MDBIcon } from 'mdbreact';
 import '../scss/components/Navigation.scss';
 
