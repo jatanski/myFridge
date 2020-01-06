@@ -9,15 +9,9 @@ export default function Navigation() {
       <MDBNavLink className="white-text" to="/">
         <MDBIcon icon="home" />
       </MDBNavLink>
-      <MDBNavLink className="white-text" to="/example">
-        READ ME!
-      </MDBNavLink>
-      <MDBNavLink className="white-text" to="/example">
-        Example
-      </MDBNavLink>
       <MDBNavLink className="white-text" to="/fridge">
-      Fridge
-    </MDBNavLink>
+        Fridge
+      </MDBNavLink>
       <MDBNavLink className="white-text" to="/register">
         Register
       </MDBNavLink>
