@@ -27,7 +27,7 @@ router.put('/:item', async (req, res) => {
 // Usuwanie produktu z lodówki
 router.delete('/:item', async (req, res) => {
     const item = await FridgeItem
-        .findOneAndDelete({product: req.params.item})
+        .findOneAndDelete({_id: req.params.item})
         .populate('product', 'name -_id')
     return res.send(item)
    

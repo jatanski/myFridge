@@ -12,12 +12,14 @@ class AddItemForm extends React.Component {
     onAddClick = event => {
         this.props.onAdd(this.state.name, this.state.units, this.state.quantity)
     };
-
+    setProps = (e) => {
+        this.setState({name: e.target.value})
+    }
     render() {
         return (
             <form>
-                <SelectItems/>
-                <MDBInput label="Name" value= {this.state.name} onChange={(e)=>this.setState({name: e.target.value})}/>
+                
+                <SelectItems value ={this.state.name} onChangeFunction = {this.setProps}/>
                 <MDBInput label="Units" value= {this.state.units} onChange={(e)=>this.setState({units: e.target.value})}/>
                 <MDBInput label="Quantity" value= {this.state.quantity} onChange={(e)=>this.setState({quantity: e.target.value})}/>
                 <MDBBtn onClick = {this.onAddClick}>Add</MDBBtn>
