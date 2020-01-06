@@ -6,10 +6,15 @@ class Dashboard extends Component {
   state = {};
   render() {
     return (
-      <section>
-        <h1>Dashboard</h1>
-        <h2>Currently in fridge</h2>
-        <FridgeContent disableAdding="true" autoLoad="true" disableRemoving="true"></FridgeContent>
+      <section className="">
+        <div className="">
+          <div className="card  m-3">
+            <div className="card-body">
+              <h2 className="h2-responsive">Currently in fridge</h2>
+              <FridgeContent disableAdding="true" autoLoad="true" disableRemoving="true"></FridgeContent>
+            </div>
+          </div>
+        </div>
       </section>
     );
   }
