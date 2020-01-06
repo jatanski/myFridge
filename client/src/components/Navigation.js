@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+// import { Link } from 'react-router-dom';
 import { MDBNav, MDBNavLink, MDBIcon } from 'mdbreact';
 import '../scss/components/Navigation.scss';
 
@@ -15,6 +15,9 @@ export default function Navigation() {
       <MDBNavLink className="white-text" to="/example">
         Example
       </MDBNavLink>
+      <MDBNavLink className="white-text" to="/fridge">
+      Fridge
+    </MDBNavLink>
       <MDBNavLink className="white-text" to="/register">
         Register
       </MDBNavLink>
