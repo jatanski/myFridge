@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { MDBBtn } from "mdbreact";
 import ItemsDisplay from './ItemsDisplay'
 import AddItem from './Items/AddItem'
 
@@ -17,7 +18,7 @@ class FridgeContent extends React.Component {
     render() {
         return (
             <div>
-            <button onClick={this.getFridgeContent}>Download content</button>
+            <MDBBtn outline onClick={this.getFridgeContent}>Show content</MDBBtn>
             <ItemsDisplay items ={this.state.items}/>
             <AddItem/>
             </div>
