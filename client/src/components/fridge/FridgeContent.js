@@ -1,7 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import ItemsDisplay from './ItemsDisplay'
-import AddItem from './newItem/AddItem'
+import AddItem from './Items/AddItem'
 
 class FridgeContent extends React.Component {
     state = { items: [] };

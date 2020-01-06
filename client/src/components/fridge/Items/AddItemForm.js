@@ -1,5 +1,9 @@
 import React from 'react';
-import { MDBInput, MDBBtn } from "mdbreact";
+import { MDBInput, MDBBtn } from 'mdbreact';
+import SelectItems from './SelectItems'
+
+
+
 
 class AddItemForm extends React.Component {
 
@@ -12,6 +16,7 @@ class AddItemForm extends React.Component {
     render() {
         return (
             <form>
+                <SelectItems/>
                 <MDBInput label="Name" value= {this.state.name} onChange={(e)=>this.setState({name: e.target.value})}/>
                 <MDBInput label="Units" value= {this.state.units} onChange={(e)=>this.setState({units: e.target.value})}/>
                 <MDBInput label="Quantity" value= {this.state.quantity} onChange={(e)=>this.setState({quantity: e.target.value})}/>

@@ -1,15 +1,18 @@
 import React from 'react';
 import { MDBContainer, MDBTable, MDBTableBody, MDBTableHead } from 'mdbreact';
+import RemoveItem from './Items/RemoveItem'
+
 
 
 const ItemsDisplay = (props) => {
     const items = props.items.map((item, index) => {
         return (
-            <tr>
+            <tr id='item-column'>
                 <td>{index + 1}</td>
                 <td>{item.product.name}</td>
                 <td>{item.units}</td>
                 <td>{item.avaliableQuantity}</td>
+                <td><RemoveItem/></td>
             </tr>
             )
     })
@@ -22,10 +25,12 @@ const ItemsDisplay = (props) => {
                         <th>Item</th>
                         <th>Units</th>
                         <th>Quantity</th>
+                        <th>Actions</th>
                     </tr>
                 </MDBTableHead>
                 <MDBTableBody>
                    {items}
+
                 </MDBTableBody>
             </MDBTable>
 
