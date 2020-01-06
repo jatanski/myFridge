@@ -6,6 +6,7 @@ import ExamplePage from '../pages/ExamplePage';
 import Navigation from '../components/Navigation';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
+import Fridge from '../pages/Fridge';
 
 export default function AppRouter() {
   return (
@@ -15,6 +16,7 @@ export default function AppRouter() {
       <Route path="/example" component={ExamplePage} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
+      <Route path="/fridge" component={Fridge} />
     </Router>
   );
 }
