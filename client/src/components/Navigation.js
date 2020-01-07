@@ -18,6 +18,9 @@ export default function Navigation() {
       <MDBNavLink className="white-text" to="/login">
         Login
       </MDBNavLink>
+      <MDBNavLink className="white-text" to="/mealList">
+        Meal List
+      </MDBNavLink>
     </MDBNav>
   );
 }
