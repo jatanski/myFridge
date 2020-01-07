@@ -7,16 +7,18 @@ import Navigation from '../components/Navigation';
 import Login from '../pages/Login';
 import Register from '../pages/Register';
 import Fridge from '../pages/Fridge';
+import AddItemToDBForm from '../pages/AddItemToDBForm';
 
 export default function AppRouter() {
   const history = createBrowserHistory();
   return (
     <Router>
-      {history.location.pathname !== '/wyjatek' ? <Navigation /> : null}
+      {history.location.pathname !== '/AddItemToDB' ? <Navigation /> : null}
       <Route path="/" exact component={Home} />
       <Route path="/login" component={Login} />
       <Route path="/register" component={Register} />
       <Route path="/fridge" component={Fridge} />
+      <Route path="/AddItemToDB" component={AddItemToDBForm} />
     </Router>
   );
 }
