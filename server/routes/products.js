@@ -8,6 +8,7 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
+    console.log(req.body);
     const { error } = validateProduct(req.body);
     if (error) return res.status(400).send(JSON.stringify(error.details[0].message));
     let product = await Product.findOne({ name: req.body.name });
@@ -22,7 +23,7 @@ router.get('/:product', async (req, res) => {
 })
 
 router.get('/', async (req, res) => {
-    const products = await Product.find().populate('units', 'name -_id').select('id name type units -_id');
+    const products = await Product.find().populate('units', 'name -_id').select('id name type units _id');
     return res.send(JSON.stringify(products));
 })
 module.exports = router;
