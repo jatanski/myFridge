@@ -12,15 +12,23 @@ class FridgeContent extends React.Component {
 
         });
         this.setState({ items: response.data });
-        console.log(this.state.items)    
+        console.log(this.state.items)
+    }
+
+    displayForm = () => {
+        window.open('AddItemToDB', '_blank',
+         'width=600,height=700,left=200,top=200,location=no,manubar=no,status=no,titlebar=no,toolbar=no');
     }
 
     render() {
         return (
             <div>
-            <MDBBtn outline onClick={this.getFridgeContent}>Show content</MDBBtn>
-            <ItemsDisplay items ={this.state.items}/>
-            <AddItem/>
+                <MDBBtn outline onClick={this.getFridgeContent}>Show content</MDBBtn>
+                <ItemsDisplay items ={this.state.items}/>
+                <AddItem/>
+                <div style={{display: "flex", flexDirection: 'column' }} >
+                    <MDBBtn to="/example" onClick={this.displayForm} outline style={{ alignSelf: "flex-end" }} size="sm" color="blue-grey" >Add new product to database</MDBBtn>
+                </div>
             </div>
         )
     }

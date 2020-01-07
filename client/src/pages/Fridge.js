@@ -3,6 +3,7 @@ import '../scss/pages/app.scss';
 import { MDBContainer } from 'mdbreact';
 import FridgeContent from '../components/fridge/FridgeContent'
 
+
 function Fridge() {
   return (
       <MDBContainer className="mt-5 text-center">
