@@ -1,5 +1,5 @@
 import React from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Redirect } from 'react-router-dom';
 import axios from 'axios';
 
 import Home from '../pages/Home';
@@ -47,7 +47,7 @@ export default class AppRouter extends React.Component {
       <Router>
         {/* <Route path="/" exact component={Home} /> */}
         <Route path="/" render={props => (props.history.location.pathname !== '/AddItemToDB' ? <Navigation {...props} loggedInStatus={this.state.loggedInStatus} /> : null)} />
-        <Route exact path="/" render={props => (this.state.loggedInStatus === 'LOGGED_IN' ? <Home {...props} loggedInStatus={this.state.loggedInStatus} /> : <Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
+        <Route exact path="/" render={props => (this.state.loggedInStatus === 'LOGGED_IN' ? <Home {...props} loggedInStatus={this.state.loggedInStatus} /> : <Redirect to="/login" />)} />
         <Route exact path="/register" render={props => (<Register {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
         <Route exact path="/login" render={props => (<Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
         <Route path="/mealList" component={MealListPage} />
