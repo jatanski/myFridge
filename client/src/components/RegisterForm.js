@@ -2,16 +2,22 @@ import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 
 class FormsPage extends React.Component {
-    state = {
-        name: "",
-        email: "",
-        password: "",
-    };
+    constructor(props) {
+        super();
+
+        this.state = {
+            name: "",
+            email: "",
+            password: "",
+        };
+    }
+
 
     submitHandler = event => {
         event.preventDefault();
         event.target.classList.add('was-validated');
         let err = false;
+        let err404 = false;
         let disabled = false;
 
         const obj = {
@@ -31,10 +37,14 @@ class FormsPage extends React.Component {
         )
             .then((response) => {
                 err = response.status !== 200 ? true : false;
+                err404 = response.status === 404 ? true : false;
                 return response.json();
             })
             .then((response) => {
                 if (err) {
+                    if (err404) {
+                        alert("Problem z serwerem, skontaktuj się z administratorem strony.")
+                    }
                     let errContainer = document.getElementsByClassName('form-error')[0];
                     if (!disabled) {
                         disabled = true;
@@ -47,7 +57,8 @@ class FormsPage extends React.Component {
                 else {
                     console.log(response);
                     // przekierowanie albo alert
-                    alert('rejestracja zakończone powodzeniem :P')
+                    // alert('rejestracja zakończone powodzeniem :P')
+                    this.props.handleSuccessfulAuth(response);
                 }
             })
     };

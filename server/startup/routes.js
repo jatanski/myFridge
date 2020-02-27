@@ -6,8 +6,9 @@ const products = require('../routes/products');
 const shoppingList = require('../routes/shoppingList');
 const fridge = require('../routes/fridge');
 const recipe = require('../routes/recipes');
+const logged_in = require('../routes/logged_in');
 
-module.exports = function(app) {
+module.exports = function (app) {
     app.use(express.json());
     app.use(error);
     app.use('/api/users', users);
@@ -16,4 +17,5 @@ module.exports = function(app) {
     app.use('/api/shoppingList', shoppingList);
     app.use('/api/fridge', fridge);
     app.use('./api/recipe', recipe);
+    app.use('./api/logged_in', logged_in);
 };

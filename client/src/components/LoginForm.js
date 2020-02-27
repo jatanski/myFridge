@@ -46,7 +46,8 @@ class FormsPage extends React.Component {
                 else {
                     localStorage.setItem('x-auth-token', response);
                     // przekierowanie albo alert
-                    alert('logowanie zakończone powodzeniem :P')
+                    // alert('logowanie zakończone powodzeniem :P')
+                    this.props.handleSuccessfulAuth(response);
                 }
             })
     };

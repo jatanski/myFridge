@@ -1,9 +1,15 @@
 import React from 'react';
 import RegisterForm from '../components/RegisterForm';
 
-
-function Register() {
-    return <RegisterForm />;
+class Register extends React.Component {
+    handleSuccessfulAuth = (data) => {
+        this.props.handleLogin("data");
+        this.props.history.push("/");
+    }
+    render() {
+        return (
+            <RegisterForm handleSuccessfulAuth={this.handleSuccessfulAuth} />
+        )
+    }
 }
-
 export default Register;
