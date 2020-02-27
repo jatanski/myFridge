@@ -4,9 +4,12 @@ const app = express();
 const cors = require('cors');
 const fridge = require('./routes/fridge');
 const products = require('./routes/products');
+
 //
-// const users = require('./routes/users');
-// const auth = require('./routes/auth');
+// Piotr - odkomentował
+const users = require('./routes/users');
+const auth = require('./routes/auth');
+const logged_in = require('./routes/logged_in');
 //
 require('./startup/prod')(app);
 require('./startup/db')();
@@ -18,8 +21,10 @@ app.use('/api/fridge', fridge);
 app.use('/api/products', products);
 
 //
-// app.use('/api/users', users);
-// app.use('/api/auth', auth);
+// Piotr - odkomentował
+app.use('/api/logged_in', logged_in);
+app.use('/api/users', users);
+app.use('/api/auth', auth);
 //
 
 if (!config.get('jwtPrivateKey')) {
