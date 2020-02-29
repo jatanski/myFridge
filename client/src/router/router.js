@@ -14,7 +14,7 @@ export default class AppRouter extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedInStatus: "NOT_LOGGED_IN",
+      loggedInStatus: "LOGGED_IN",
     }
     this.handleLogin = this.handleLogin.bind(this);
   }
@@ -31,12 +31,20 @@ export default class AppRouter extends React.Component {
             loggedInStatus: "LOGGED_IN"
           })
         } else if (!response.data === 'Valid Token' && this.state.loggedInStatus === 'LOGGED_IN') {
+          console.log('why???')
           this.setState({
             loggedInStatus: "NOT_LOGGED_IN"
           })
         }
       })
-      .catch((err) => { console.log(err.response.data) })
+      .catch((err) => {
+        if (err.response !== undefined) {
+          this.setState({
+            loggedInStatus: "NOT_LOGGED_IN"
+          })
+          // console.log(err.response.data) 
+        }
+      })
   }
   componentDidMount() {
     this.checkLoginStatus();
@@ -46,7 +54,7 @@ export default class AppRouter extends React.Component {
     return (
       <Router>
         {/* <Route path="/" exact component={Home} /> */}
-        <Route path="/" render={props => (props.history.location.pathname !== '/AddItemToDB' ? <Navigation {...props} loggedInStatus={this.state.loggedInStatus} /> : null)} />
+        <Route path="/" render={props => (props.history.location.pathname !== '/AddItemToDB' && props.history.location.pathname !== '/login' && props.history.location.pathname !== '/register' ? <Navigation {...props} loggedInStatus={this.state.loggedInStatus} /> : null)} />
         <Route exact path="/" render={props => (this.state.loggedInStatus === 'LOGGED_IN' ? <Home {...props} loggedInStatus={this.state.loggedInStatus} /> : <Redirect to="/login" />)} />
         <Route exact path="/register" render={props => (<Register {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
         <Route exact path="/login" render={props => (<Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />

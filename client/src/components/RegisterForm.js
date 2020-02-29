@@ -1,5 +1,7 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
+import { LinkTo as Link, NavigationContainer } from '../components/fridge/form_items/link';
+
 
 class FormsPage extends React.Component {
     constructor(props) {
@@ -125,6 +127,9 @@ class FormsPage extends React.Component {
                                     Register
                                 </MDBBtn>
                             </div>
+                            <NavigationContainer><p>Are you already registered? </p><Link to="/login"> Login in here</Link></NavigationContainer>
+                            {/* Are you already registered */}
+
                         </form>
                     </MDBCol>
                 </MDBRow>

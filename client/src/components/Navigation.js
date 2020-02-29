@@ -12,12 +12,6 @@ export default function Navigation() {
       <MDBNavLink className="white-text" to="/fridge">
         Fridge
       </MDBNavLink>
-      <MDBNavLink className="white-text" to="/register">
-        Register
-      </MDBNavLink>
-      <MDBNavLink className="white-text" to="/login">
-        Login
-      </MDBNavLink>
       <MDBNavLink className="white-text" to="/mealList">
         Meal List
       </MDBNavLink>
