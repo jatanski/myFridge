@@ -1,6 +1,7 @@
 import React from "react";
 import { MDBContainer, MDBRow, MDBCol, MDBBtn } from 'mdbreact';
 import '../scss/components/login.scss';
+import { LinkTo as Link, NavigationContainer } from '../components/fridge/form_items/link';
 
 class FormsPage extends React.Component {
     state = {
@@ -98,6 +99,7 @@ class FormsPage extends React.Component {
                             <div className="text-center mt-4">
                                 <MDBBtn color="indigo" type="submit">Login</MDBBtn>
                             </div>
+                            <NavigationContainer><p>Don't have an account? </p><Link to="/register">Sign up here</Link></NavigationContainer>
                         </form>
                     </MDBCol>
                 </MDBRow>
