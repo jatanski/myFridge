@@ -10,40 +10,67 @@ import MealListPage from '../pages/MealListPage';
 import Fridge from '../pages/Fridge';
 import AddItemToDBForm from '../pages/AddItemToDBForm';
 
+
+const PrivateRoute = ({ pushForwardProps, isLoaded, loggedInStatus, component: Component, ...rest }) => {
+  const redirectLink = "./login";
+  return (
+    < Route
+      {...rest}
+      render={props =>
+        !isLoaded ? (
+          <></>
+        ) : loggedInStatus ? (
+          <Component {...props} {...pushForwardProps} />
+        ) : (
+              <Redirect to={redirectLink} />
+            )
+      }
+    />
+  );
+};
+
 export default class AppRouter extends React.Component {
   constructor() {
     super();
     this.state = {
-      loggedInStatus: "LOGGED_IN",
+      loggedInStatus: false,
+      isLoaded: false,
     }
     this.handleLogin = this.handleLogin.bind(this);
   }
   handleLogin(data) {
     this.setState({
+      logged: axios.get('http://localhost:8000/api/logged_in', { headers: { 'x-auth-token': localStorage.getItem('x-auth-token') } })
+        .then(response => {
+          if (response.data === 'Valid Token' && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
+            return true;
+          }
+        })
+        .catch((err) => {
+          if (err.response !== undefined) {
+            return false;
+          }
+        }),
       loggedInStatus: "LOGGED_IN"
     })
   }
   checkLoginStatus() {
     axios.get('http://localhost:8000/api/logged_in', { headers: { 'x-auth-token': localStorage.getItem('x-auth-token') } })
       .then(response => {
-        if (response.data === 'Valid Token' && this.state.loggedInStatus === 'NOT_LOGGED_IN') {
+        if (response.data === 'Valid Token' && this.state.loggedInStatus === false) {
           this.setState({
-            loggedInStatus: "LOGGED_IN"
-          })
-        } else if (!response.data === 'Valid Token' && this.state.loggedInStatus === 'LOGGED_IN') {
-          console.log('why???')
-          this.setState({
-            loggedInStatus: "NOT_LOGGED_IN"
+            loggedInStatus: true,
+            isLoaded: true,
           })
         }
       })
       .catch((err) => {
-        if (err.response !== undefined) {
-          this.setState({
-            loggedInStatus: "NOT_LOGGED_IN"
-          })
-          // console.log(err.response.data) 
-        }
+        // if (err.response !== undefined) { w przypadku problemu z połączenie z serwerem równierz nastąpi przekierowanie do logowania
+        this.setState({
+          loggedInStatus: false,
+          isLoaded: true,
+        })
+
       })
   }
   componentDidMount() {
@@ -52,16 +79,15 @@ export default class AppRouter extends React.Component {
 
   render() {
     return (
-      <Router>
-        {/* <Route path="/" exact component={Home} /> */}
+      < Router >
         <Route path="/" render={props => (props.history.location.pathname !== '/AddItemToDB' && props.history.location.pathname !== '/login' && props.history.location.pathname !== '/register' ? <Navigation {...props} loggedInStatus={this.state.loggedInStatus} /> : null)} />
-        <Route exact path="/" render={props => (this.state.loggedInStatus === 'LOGGED_IN' ? <Home {...props} loggedInStatus={this.state.loggedInStatus} /> : <Redirect to="/login" />)} />
+        <PrivateRoute exact path="/" component={Home} isLoaded={this.state.isLoaded} loggedInStatus={this.state.loggedInStatus} pushForwardProps={{ loggedInStatus: this.state.loggedInStatus }} />
+        <PrivateRoute path="/mealList" component={MealListPage} isLoaded={this.state.isLoaded} loggedInStatus={this.state.loggedInStatus} />
+        <PrivateRoute path="/fridge" component={Fridge} isLoaded={this.state.isLoaded} loggedInStatus={this.state.loggedInStatus} />
+        <PrivateRoute path="/AddItemToDB" component={AddItemToDBForm} isLoaded={this.state.isLoaded} loggedInStatus={this.state.loggedInStatus} />
         <Route exact path="/register" render={props => (<Register {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
         <Route exact path="/login" render={props => (<Login {...props} handleLogin={this.handleLogin} loggedInStatus={this.state.loggedInStatus} />)} />
-        <Route path="/mealList" component={MealListPage} />
-        <Route path="/fridge" component={Fridge} />
-        <Route path="/AddItemToDB" component={AddItemToDBForm} />
-      </Router>
+      </Router >
     );
   }
 }
