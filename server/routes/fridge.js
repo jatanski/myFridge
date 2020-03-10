@@ -1,16 +1,28 @@
 const _ = require('lodash');
+const auth = require('../middleware/auth');
 const { FridgeItem, addToFridge, validateItem } = require('../models/fridgeContent');
 const express = require('express');
 const router = express.Router();
 
 // Dodawanie produktu do lodówki manualnie
-router.post('/', (req, res) => {
+router.post('/', auth, async (req, res) => {
+    const user = req.user._id;
+    req.body.owner = user;
     const result = validateItem(req.body);
-    if (result.error){
+    if (result.error) {
         res.status(400).send('Niepoprawny input')
     }
     else {
-        addToFridge(req.body, res);
+        const item = await FridgeItem
+            .findOneAndUpdate({ product: req.body.product, owner: req.body.owner }, { $inc: { avaliableQuantity: req.body.avaliableQuantity } }, { new: true })
+            .populate('product', 'name -_id')
+        if (!item) {
+            addToFridge(req.body, res);
+        } else {
+            return res.send(item)
+        }
+
+
     }
 });
 
@@ -18,28 +30,33 @@ router.post('/', (req, res) => {
 router.put('/:item', async (req, res) => {
     // Pobranie produktu
     const item = await FridgeItem
-        .findOneAndUpdate({product: req.params.item}, req.body)
+        .findOneAndUpdate({ product: req.params.item }, req.body)
         .populate('product', 'name -_id')
     return res.send(item)
-   
+
 })
 
 // Usuwanie produktu z lodówki
 router.delete('/:item', async (req, res) => {
     const item = await FridgeItem
-        .findOneAndDelete({_id: req.params.item})
+        .findOneAndDelete({ _id: req.params.item })
         .populate('product', 'name -_id')
     return res.send(item)
-   
+
 })
 
 
 // Pobieranie produktów dostępnych w lodówce
-router.get('/', async (req, res) => {
+router.get('/', auth, async (req, res) => {
+    // user przechwycony przez auth z JWT;
+    const user = req.user._id;
+    console.log(user);
+    // console.log(req.body);
+
     const fridgeContent = await FridgeItem
-        .find()
+        .find({ owner: user })
         .populate('product', 'name -_id')
-        .select({product : 1, units: 1, avaliableQuantity: 1});
+        .select({ product: 1, units: 1, avaliableQuantity: 1 });
     return res.send(fridgeContent);
 });
 
