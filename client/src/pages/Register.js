@@ -3,7 +3,7 @@ import RegisterForm from '../components/RegisterForm';
 
 class Register extends React.Component {
     handleSuccessfulAuth = (data) => {
-        this.props.handleLogin("data");
+        this.props.handleLogin();
         this.props.history.push("/");
     }
     render() {

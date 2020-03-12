@@ -37,7 +37,7 @@ router.put('/:item', async (req, res) => {
 })
 
 // Usuwanie produktu z lodówki
-router.delete('/:item', async (req, res) => {
+router.delete('/:item', auth, async (req, res) => {
     const item = await FridgeItem
         .findOneAndDelete({ _id: req.params.item })
         .populate('product', 'name -_id')
@@ -50,9 +50,6 @@ router.delete('/:item', async (req, res) => {
 router.get('/', auth, async (req, res) => {
     // user przechwycony przez auth z JWT;
     const user = req.user._id;
-    console.log(user);
-    // console.log(req.body);
-
     const fridgeContent = await FridgeItem
         .find({ owner: user })
         .populate('product', 'name -_id')

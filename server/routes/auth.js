@@ -7,7 +7,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-  // console.log(req.body);
   const { error } = validate(req.body);
   if (error) return res.status(400).send(JSON.stringify(error.details[0].message));
 
@@ -18,7 +17,10 @@ router.post('/', async (req, res) => {
   if (!validPassword) return res.status(400).send(JSON.stringify('Invalid email or password.'));
 
   const token = user.generateAuthToken();
-  res.send(JSON.stringify(token));
+  // najlepiej by było wysyłać token w headerze natomiast jako body proponował bym login usera ...
+  // console.log(user);
+  res.header('x-auth-token', token).send(_.pick(user, ['name', 'email']));
+  // res.send(JSON.stringify(token));
 });
 
 function validate(req) {

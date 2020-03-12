@@ -16,6 +16,7 @@ module.exports = function (app) {
     app.use('/api/products', products);
     app.use('/api/shoppingList', shoppingList);
     app.use('/api/fridge', fridge);
-    app.use('./api/recipe', recipe);
-    app.use('./api/logged_in', logged_in);
+    // nie działa do sprawdzenia 
+    // app.use('./api/recipe', recipe);
+    app.use('/api/logged_in', logged_in);
 };

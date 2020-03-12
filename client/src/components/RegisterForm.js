@@ -40,6 +40,8 @@ class FormsPage extends React.Component {
             .then((response) => {
                 err = response.status !== 200 ? true : false;
                 err404 = response.status === 404 ? true : false;
+                // response.headers.entries();
+                localStorage.setItem('x-auth-token', response.headers.get('x-auth-token'));
                 return response.json();
             })
             .then((response) => {
@@ -57,9 +59,7 @@ class FormsPage extends React.Component {
 
                 }
                 else {
-                    console.log(response);
                     // przekierowanie albo alert
-                    // alert('rejestracja zakończone powodzeniem :P')
                     this.props.handleSuccessfulAuth(response);
                 }
             })
@@ -128,65 +128,11 @@ class FormsPage extends React.Component {
                                 </MDBBtn>
                             </div>
                             <NavigationContainer><p>Are you already registered? </p><Link to="/login"> Login in here</Link></NavigationContainer>
-                            {/* Are you already registered */}
-
                         </form>
                     </MDBCol>
                 </MDBRow>
             </MDBContainer>
         );
     }
-
-
-
 }
-
-// const FormPage = () => {
-//     return (
-//         <MDBContainer>
-//             <MDBRow>
-//                 <MDBCol md="6">
-//                     <form>
-//                         <p className="h4 text-center mb-4">Sign up</p>
-//                         <label htmlFor="defaultFormRegisterNameEx" className="grey-text">
-//                             Your login
-//                         </label>
-//                         <input
-//                             type="text"
-//                             id="defaultFormRegisterNameEx"
-//                             className="form-control"
-//                         />
-//                         <br />
-//                         <label htmlFor="defaultFormRegisterEmailEx" className="grey-text">
-//                             Your email
-//                         </label>
-//                         <input
-//                             type="email"
-//                             id="defaultFormRegisterEmailEx"
-//                             className="form-control"
-//                         />
-//                         <br />
-//                         <label
-//                             htmlFor="defaultFormRegisterPasswordEx"
-//                             className="grey-text"
-//                         >
-//                             Your password
-//                         </label>
-//                         <input
-//                             type="password"
-//                             id="defaultFormRegisterPasswordEx"
-//                             className="form-control"
-//                         />
-//                         <div className="text-center mt-4">
-//                             <MDBBtn color="unique" type="submit">
-//                                 Register
-//                             </MDBBtn>
-//                         </div>
-//                     </form>
-//                 </MDBCol>
-//             </MDBRow>
-//         </MDBContainer>
-//     );
-// };
-
 export default FormsPage;
