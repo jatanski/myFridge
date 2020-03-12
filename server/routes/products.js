@@ -8,7 +8,6 @@ const express = require('express');
 const router = express.Router();
 
 router.post('/', async (req, res) => {
-    // console.log(req.body);
     const { error } = validateProduct(req.body);
     if (error) return res.status(400).send(JSON.stringify(error.details[0].message));
     let product = await Product.findOne({ name: req.body.name });

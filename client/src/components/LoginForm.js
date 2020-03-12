@@ -4,10 +4,14 @@ import '../scss/components/login.scss';
 import { LinkTo as Link, NavigationContainer } from '../components/fridge/form_items/link';
 
 class FormsPage extends React.Component {
-    state = {
-        name: "",
-        password: "",
-    };
+    constructor(props) {
+        super(props);
+        this.state = {
+            name: "",
+            password: "",
+        };
+    }
+
 
     submitHandler = async (event) => {
         event.preventDefault();
@@ -31,24 +35,27 @@ class FormsPage extends React.Component {
         )
             .then((response) => {
                 err = response.status !== 200 ? true : false;
-                return response.json();
-            })
-            .then((response) => {
                 if (err) {
                     let errContainer = document.getElementsByClassName('form-error')[0];
                     if (!disabled) {
                         disabled = true;
-                        errContainer.innerHTML = response;
-                        setTimeout(() => { errContainer.classList.add('closed') }, 2000)
-                        setTimeout(() => { errContainer.innerHTML = ''; errContainer.classList.remove('closed'); disabled = false }, 3000)
+                        return response.json()
+                        .then((response) => {
+                            errContainer.innerHTML = response;
+                            setTimeout(() => { errContainer.classList.add('closed') }, 2000)
+                            setTimeout(() => { errContainer.innerHTML = ''; errContainer.classList.remove('closed'); disabled = false }, 3000)
+                        })
+        
                     }
-
                 }
                 else {
-                    localStorage.setItem('x-auth-token', response);
                     // przekierowanie albo alert
-                    // alert('logowanie zakończone powodzeniem :P')
-                    this.props.handleSuccessfulAuth(response);
+                    const token = response.headers.get('x-auth-token');
+                    return response.json()
+                        .then((response) => {
+                            // localStorage.setItem('name', response['name']);
+                            this.props.handleSuccessfulAuth(token, response['name']);
+                        })
                 }
             })
     };

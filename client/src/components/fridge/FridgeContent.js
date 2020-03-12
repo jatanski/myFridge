@@ -16,8 +16,7 @@ class FridgeContent extends React.Component {
   getFridgeContent = async items => {
     const response = await axios.get('http://localhost:8000/api/fridge', { headers: { 'x-auth-token': window.localStorage['x-auth-token'] } });
     this.setState({ items: response.data });
-    console.log(this.state.items);
-    // console.log(window.localStorage['x-auth-token'])
+    // console.log(this.state.items);
   };
 
   render() {

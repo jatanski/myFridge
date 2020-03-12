@@ -2,30 +2,16 @@ const config = require('config');
 const express = require('express');
 const app = express();
 const cors = require('cors');
-const fridge = require('./routes/fridge');
-const products = require('./routes/products');
 
-//
-// Piotr - odkomentował
-const users = require('./routes/users');
-const auth = require('./routes/auth');
-const logged_in = require('./routes/logged_in');
-//
 require('./startup/prod')(app);
 require('./startup/db')();
-require('./startup/routes');
 
 app.use(express.json());
-app.use(cors())
-app.use('/api/fridge', fridge);
-app.use('/api/products', products);
-
-//
-// Piotr - odkomentował
-app.use('/api/logged_in', logged_in);
-app.use('/api/users', users);
-app.use('/api/auth', auth);
-//
+// przekazywanie JWT w headerze, aby był widoczny z perpspektywy fetcha
+app.use(cors({
+    exposedHeaders: ['x-auth-token'],
+}));
+require('./startup/routes')(app);
 
 if (!config.get('jwtPrivateKey')) {
     console.error('FATAL ERROR: jwtPrivateKey is not defined.');

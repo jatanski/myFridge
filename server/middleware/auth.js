@@ -8,7 +8,6 @@ module.exports = function auth(req, res, next) {
     try {
         const decoded = jwt.verify(token, config.get('jwtPrivateKey'));
         req.user = decoded;
-        // console.log(decoded); { _id: '5e57e9890fb89f0b63494724', iat: 1583165067 }
         next();
     }
     catch{
